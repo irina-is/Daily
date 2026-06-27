@@ -418,16 +418,7 @@ const CHEER_MESSAGES = [
 const cheerPick = CHEER_MESSAGES[Math.floor(Math.random()*CHEER_MESSAGES.length)];
 
 const GIFT_IDEAS = [
-  'сертификат на массаж',
-  'новая книга, которую давно хотела',
-  'десерт в любимой кофейне',
-  'вечер без дел — плед, чай и сериал',
-  'новый лак для ногтей',
-  'букет цветов просто так',
-  'поход в кино одной, без чувства вины',
-  'свеча с любимым ароматом',
-  'хорошая маска для лица или волос',
-  'ужин в кафе без подсчёта калорий'
+  'Подарок',
 ];
 const giftPick = GIFT_IDEAS[Math.floor(Math.random()*GIFT_IDEAS.length)];
 
@@ -461,7 +452,7 @@ function renderWeekGoal(){
 
   document.getElementById('cheerTitle').textContent = cheerPick.title;
   document.getElementById('cheerMsg').textContent = cheerPick.msg;
-  document.getElementById('cheerGift').textContent = `🎁 Дарю тебе: ${giftPick}!`;
+  document.getElementById('cheerGift').textContent = `🎁`;
 
   // Поздравление показываем за каждую завершённую неделю (7, 14, 21…), но только
   // пока его не закрыли кнопкой «Ок». Закрытие НЕ обнуляет серию — просто прячет
