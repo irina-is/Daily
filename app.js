@@ -70,8 +70,8 @@ function morningItems(){
     {id:'cleanse-am', icon:'droplet', label:'Пенка для умывания', sub:'', type:'check'},
     {id:'toner-am', icon:'toner', label:'Тоник', sub:'Cos De BAHA, ниацинамид', type:'check'},
     {id:'peptide', icon:'sparkle', label:'Пептидная сыворотка', sub:'Cos De BAHA, можно и под глаза', type:'check'},
-    {id:'massage', icon:'stones', label:'Лимфодренажный массаж', sub:'5–7 минут, с кремом для скольжения', type:'timer', duration:300},
     {id:'cream-am', icon:'jar', label:'Крем', sub:'', type:'check'},
+    {id:'massage', icon:'stones', label:'Лимфодренажный массаж', sub:'5–7 минут, с кремом для скольжения', type:'timer', duration:300},
     {id:'spf', icon:'sun', label:'SPF', sub:'SPF 50 — обязательно', type:'check'},
     {id:'teeth-am', icon:'tooth', label:'Чистка зубов', sub:'Зубы и язык, 2 минуты', type:'timer', duration:120, mouth:true},
   ];
@@ -94,7 +94,7 @@ function eveningItems(dayIndex, date){
   }
   items.push({id:'cream-pm', icon:'jar', label:'Крем', sub: isRetinol ? 'Обязательно после ретинола' : '', type:'check'});
   items.push({id:'spot', icon:'dot', label:'Точечно: цинк / салициловая', sub:'на воспаления, если есть', type:'check', optional:true});
-  items.push({id:'eye-pm', icon:'eye', label:'Уход под глазами', sub:'Eveline-роллер', type:'check'});
+  items.push({id:'eye-pm', icon:'eye', label:'Уход под глазами', sub:'Eveline-роллер', type:'check', optional:true});
   items.push({id:'teeth-pm', icon:'tooth', label:'Чистка зубов', sub:'Зубы и язык, 2 минуты', type:'timer', duration:120, mouth:true});
   items.push({id:'irrigator', icon:'jet', label:'Ирригатор', sub:'после чистки зубов', type:'check', mouth:true});
   return {items, isPeeling, isRetinol};
