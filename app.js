@@ -437,13 +437,15 @@ function starIcon(cls){
 function renderWeekGoal(){
   const streak = computeStreak();
   const slots = 7;
-  const filled = Math.min(streak, slots);
+  // Счётчик и звёзды — это ТЕКУЩАЯ неделя: заполняются 0→7 и сбрасываются после
+  // каждой завершённой недели. Общая серия в днях показывается отдельным бейджем.
+  const weekFilled = streak % slots; // 0..6 (на рубеже 7/14/21 неделя начинается заново)
   const todayLooksGood = getDayStatus(today) === 'full';
   let html = '';
   for(let i=0; i<slots; i++){
-    if(i < filled){
+    if(i < weekFilled){
       html += starIcon('on');
-    } else if(i === filled && streak < slots){
+    } else if(i === weekFilled){
       // это "сегодня" — пока не решено, идеальный ли день; обводка + цвет по ходу дня
       html += starIcon(`current ${todayLooksGood?'on':'pending'}`);
     } else {
@@ -451,7 +453,12 @@ function renderWeekGoal(){
     }
   }
   document.getElementById('weekGoalDots').innerHTML = html;
-  document.getElementById('weekGoalCount').textContent = `${filled}/7`;
+  document.getElementById('weekGoalCount').textContent = `${weekFilled}/7`;
+
+  // Бейдж серии в днях подряд (показываем от 2 дней — иначе «1 день подряд» странно)
+  const badge = document.getElementById('streakBadge');
+  badge.textContent = streak >= 2 ? `🔥${streak}` : '';
+
   document.getElementById('cheerTitle').textContent = cheerPick.title;
   document.getElementById('cheerMsg').textContent = cheerPick.msg;
   document.getElementById('cheerGift').textContent = `🎁 Дарю тебе: ${giftPick}!`;
@@ -460,15 +467,21 @@ function renderWeekGoal(){
   // пока его не закрыли кнопкой «Ок». Закрытие НЕ обнуляет серию — просто прячет
   // сообщение до следующего недельного рубежа.
   const milestone = Math.floor(streak / 7);
-  const seen = getCheerSeen();
+  let seen = getCheerSeen();
+  // если серия прервалась и откатилась — опускаем "виденный" рубеж, чтобы
+  // поздравление снова показалось, когда заново наберёшь неделю.
+  if(milestone < seen){ seen = milestone; setCheerSeen(milestone); }
   document.getElementById('weekGoalCheer').classList.toggle('show', milestone >= 1 && milestone > seen);
 }
 const CHEER_SEEN_KEY = 'ritual_cheer_seen';
 function getCheerSeen(){
   try{ return parseInt(localStorage.getItem(CHEER_SEEN_KEY) || '0', 10) || 0; }catch(e){ return 0; }
 }
+function setCheerSeen(v){
+  try{ localStorage.setItem(CHEER_SEEN_KEY, String(v)); }catch(e){}
+}
 document.getElementById('cheerOk').addEventListener('click', ()=>{
-  try{ localStorage.setItem(CHEER_SEEN_KEY, String(Math.floor(computeStreak() / 7))); }catch(e){}
+  setCheerSeen(Math.floor(computeStreak() / 7));
   document.getElementById('weekGoalCheer').classList.remove('show');
 });
 

@@ -160,6 +160,15 @@
     color:var(--gold-deep);
     margin-left:6px;
   }
+  .streak-badge{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:700;
+    color:var(--am-text);
+    margin-left:8px;
+    white-space:nowrap;
+  }
+  .streak-badge:empty{display:none;}
 
   .history-dots{display:flex; gap:8px;}
   .hdot{
