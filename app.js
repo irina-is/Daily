@@ -343,7 +343,7 @@ function getWeightGoals(){
       if(typeof g.start === 'number' && typeof g.goal === 'number') return g;
     }
   }catch(e){}
-  return {start: 65, goal: 55};
+  return {start: 62, goal: 55};
 }
 function setWeightGoals(start, goal){
   try{ localStorage.setItem(WEIGHT_GOALS_KEY, JSON.stringify({start, goal})); }catch(e){}
@@ -658,7 +658,7 @@ function closeCheckin(){
   document.getElementById('checkinOverlay').classList.add('hidden');
 }
 
-let weightStepperValue = 65;
+let weightStepperValue = 62;
 function getDefaultWeight(){
   if(typeof prompt.weight === 'number') return prompt.weight;
   try{
@@ -873,9 +873,7 @@ deleteAllBtn.addEventListener('click', ()=>{
   try{
     if(getWeightHistory().length < 2){
       const demo = [
-        ['2026-06-08', 64.8], ['2026-06-11', 64.1], ['2026-06-14', 63.6],
-        ['2026-06-17', 63.0], ['2026-06-20', 62.4], ['2026-06-23', 61.8],
-        ['2026-06-26', 61.2]
+        ['2026-06-27', 61.5], ['2026-06-26', 64.1]
       ];
       demo.forEach(([dateStr, w])=>{
         const rec = loadState(`ritual_prompt_${dateStr}`);
@@ -964,7 +962,7 @@ function parseDateInput(str){
   const [y,m,d] = str.split('-').map(Number);
   return new Date(y, m-1, d);
 }
-let editWeightValue = 65;
+let editWeightValue = 62;
 function loadEditDay(){
   const str = document.getElementById('editDayInput').value;
   if(!str) return;
